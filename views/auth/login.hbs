@@ -1,20 +1,30 @@
-<div id="login-form">
-  <h2>Log In</h2>
-  <form action="/auth/login" method="POST">
+<link rel="stylesheet" href="/stylesheets/login.css">
 
-    <label> Username
-      <input type="text" name="username" placeholder="Your username" />
-    </label>
 
-    <label> Email
-      <input type="email" name="email" placeholder="Your email" />
-    </label>
+<section>
+<div id="login-form" class= "loginAll">
+	<div class = "botonesLog">
+		<h2>LOGIN</h2>
+  <form action="/auth/login" method="POST" class = "formLogin">
 
-    <label> Password
-      <input type="password" name="password" placeholder="Your password" />
-    </label>
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Usuario</label>
+  <input type="text" class="form-control" id="exampleFormControlInput1" name ="username" placeholder="Nombre de usuario" >
+</div>
 
-    <button type="submit">Log In</button>
+		{{!-- // --}}
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Correo Electronico</label>
+  <input type="email" class="form-control" id="exampleFormControlInput2" name ="email" placeholder="Correo Electronico">
+</div>
+
+
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Contrase;a</label>
+  <input type="password" class="form-control" id="exampleFormControlInput3" name ="password" >
+</div>
+    <button class="btn btn-outline-success" type="submit">Log In</button>
+		</div>
 
 
     {{#if errorMessage}}
@@ -22,3 +32,4 @@
     {{/if}}
   </form>
 </div>
+</section>
