@@ -1,0 +1,40 @@
+*{
+	padding: 0;
+
+}
+.loginAll{
+	background-image: url("/images/FondoSignup.avif");
+	background-size: cover;
+	background-repeat: no-repeat;
+	opacity: 0.8;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	
+}
+.formLogin{
+	
+	box-shadow: 25px 18px 15px -3px rgba(0,0,0,0.1);
+	opacity: none
+	;
+}
+
+h2{
+	font-size: 60px;
+	align-content: center;
+}
+
+.botonesLog{
+
+	width: 30vw;
+	height: 10vh;
+	align-content: center;
+	padding-top: 5%;
+	padding-left: 4%;
+	padding-right: 5%;
+	background-color: rgb();
+	font-size: 15px;
+	opacity: none;
+	
+}
