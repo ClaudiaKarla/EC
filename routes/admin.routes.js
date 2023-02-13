@@ -1,41 +1,47 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-// ℹ️ Handles password encryption
+/////////////////////////////////////////////////////////////////
+
+//maneja el cifrado de contraseña
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
-// How many rounds should bcrypt run the salt (default - 10 rounds)
+// Cuántas rondas debe bcrypt ejecutar la sal (predeterminado: 10 rondas)
 const saltRounds = 10;
 
-// Require the User model in order to interact with the database
-const User = require("../models/User.model");
+// Requerir el modelo de usuario para interactuar con la base de datos
+      const Admin = require("../models/Admin.model");
 
-// Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
+// Requerir el middleware necesario (isLoggedOut e isLiggedIn) para controlar el acceso a rutas específicas
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
+
 // GET /auth/signup
-router.get("/signup", isLoggedOut, (req, res) => {
-  res.render("auth/signup");
+//OBTENER /autenticación/registro
+router.get("/admin", isLoggedOut, (req, res) => {
+  res.render("auth/admin");
 });
 
 // POST /auth/signup
-router.post("/signup", isLoggedOut, (req, res) => {
+//POST /autorización/registro
+router.post("/admin", isLoggedOut, (req, res) => {
   const { name, lastname, username, email, password } = req.body;
     console.log(req.body)
   // Check that username, email, and password are provided
+  //Verifique que se proporcione el nombre de usuario, el correo electrónico y la contraseña
   if (name === "" ||  lastname=== "" ||   username === "" || email === "" || password === "") {
-    res.status(400).render("auth/signup", {
+    res.status(400).render("auth/admin", {
       errorMessage:
-        "All fields are mandatory. Please provide your username, email and password.",
+        "All fields are mandatory. Please provide your name, lastname, username, email and password.",
     });
 
     return;
   }
 
   if (password.length < 6) {
-    res.status(400).render("auth/signup", {
+    res.status(400).render("auth/admin", {
       errorMessage: "Your password needs to be at least 6 characters long.",
     });
 
@@ -61,16 +67,17 @@ router.post("/signup", isLoggedOut, (req, res) => {
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({ name, lastname, username, email, password: hashedPassword });
+      // Crear un usuario y guardarlo en la base de datos
+      return Admin.create({ name, lastname, username, email, password: hashedPassword });
     })
-    .then((user) => {
+    .then((admin) => {
       res.redirect("/auth/login");
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
-        res.status(500).render("auth/signup", { errorMessage: error.message });
+        res.status(500).render("auth/admin", { errorMessage: error.message });
       } else if (error.code === 11000) {
-        res.status(500).render("auth/signup", {
+        res.status(500).render("auth/admin", {
           errorMessage:
             "Username and email need to be unique. Provide a valid username or email.",
         });
@@ -90,6 +97,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   const { name, lastname, username, email, password } = req.body;
 
   // Check that username, email, and password are provided
+  // Verifique que se proporcionen el nombre de usuario, el correo electrónico y la contraseña
   if (name === "" ||  lastname=== "" ||   username === "" || email === "" || password === "") {
     res.status(400).render("auth/login", {
       errorMessage:
@@ -101,6 +109,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
 
   // Here we use the same logic as above
   // - either length based parameters or we check the strength of a password
+  // - parámetros basados en la longitud o comprobamos la seguridad de una contraseña
   if (password.length < 6) {
     return res.status(400).render("auth/login", {
       errorMessage: "Your password needs to be at least 6 characters long.",
@@ -108,10 +117,12 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   }
 
   // Search the database for a user with the email submitted in the form
+  // Buscar en la base de datos un usuario con el correo electrónico enviado en el formulario
   User.findOne({ email })
-    .then((user) => {
+    .then((admin) => {
       // If the user isn't found, send an error message that user provided wrong credentials
-      if (!user) {
+      // Si no se encuentra el usuario, envíe un mensaje de error indicando que el usuario proporcionó credenciales incorrectas
+      if (!admin) {
         res
           .status(400)
           .render("auth/login", { errorMessage: "Wrong credentials." });
@@ -120,7 +131,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
 
       // If user is found based on the username, check if the in putted password matches the one saved in the database
       bcrypt
-        .compare(password, user.password)
+        .compare(password, admin.password)
         .then((isSamePassword) => {
           if (!isSamePassword) {
             res
@@ -130,9 +141,9 @@ router.post("/login", isLoggedOut, (req, res, next) => {
           }
 
           // Add the user object to the session object
-          req.session.currentUser = user.toObject();
+          req.session.currentAdmin = admin.toObject();
           // Remove the password field
-          delete req.session.currentUser.password;
+          delete req.session.currentAdmin.password;
 
           res.redirect("/");
         })
@@ -152,5 +163,6 @@ router.get("/logout", isLoggedIn, (req, res) => {
     res.redirect("/");
   });
 });
+
 
 module.exports = router;

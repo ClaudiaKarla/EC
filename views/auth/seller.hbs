@@ -1,0 +1,34 @@
+<div id="form">
+  <h2>Sign Up</h2>
+  <form action="/auth/signup" method="POST">
+
+name, lastname, company, email, password 
+
+ <label> Name
+      <input type="text" name="name" placeholder="Your name" />
+    </label>
+
+    <label> Lastname
+      <input type="text" name="Lastname" placeholder="Your Lastname" />
+    </label>
+
+    <label> Company
+      <input type="text" name="company" placeholder="Your company" />
+    </label>
+
+    <label> Email
+      <input type="email" name="email" placeholder="Your email" />
+    </label>
+
+    <label> Password
+      <input type="password" name="password" placeholder="Your password" />
+    </label>
+
+    <button type="submit">Sign Up</button>
+
+
+    {{#if errorMessage}}
+      <p class="error">{{errorMessage}}</p>
+    {{/if}}
+  </form>
+</div>

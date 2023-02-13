@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
-const userSchema = new Schema(
+const adminSchema = new Schema(
   {
     nombre: {
       type: String,
@@ -12,29 +12,24 @@ const userSchema = new Schema(
       required: true
     },
 
-    nombreDeUsuario: {
+    username: {
       type: String,
       required: true,
       unique: true,
-      trim: true,
+      trim: true
     },
     correo: {
       type: String,
       required: true,
       unique: true,
       trim: true,
-      lowercase: true,
+      lowercase: true
     },
     contraseña: {
       type: String,
-      required: true,
+      required: true
     },
     telefono:String,
-    role:{
-      type:String,
-      enum:["cliente", "vendedor", "admin"],
-      default:"cliente"
-    }
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
@@ -42,6 +37,6 @@ const userSchema = new Schema(
   }
 );
 
-const User = model("User", userSchema);
+const Admin = model("Admin", adminSchema);
 
-module.exports = User;
+module.exports = Admin;
