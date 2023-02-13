@@ -1,12 +1,93 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+*{
+  padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+  font-size: 35px;
 }
 
-a {
-  color: #00b7ff;
+/* h3{
+color: rgb(237, 235, 239);
+padding: 40px 40%;
+font-size: 95px;
+border-color: aliceblue;
+border:5px
+
+} */
+
+.h3, h3 {
+	font-size: 100px;
+	color: rgb(237, 235, 239);
+	padding: 40px 40%;
 }
 
-h1 {
-  color: 15px;
+.avatar{
+
+	float: right;	
+	display: inline-block;
+	color: white;
+}
+.h2, h2 {
+	font-size: 15px;
+}
+
+
+.hero{
+	width: 100vw;
+	height: 100vh;
+	background-image:url("/images/ImagenInicio2.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	
+}
+nav{
+	display: flex;
+	justify-content:space-around;
+	padding: 30px 15px;
+	font-size: 45px;
+	
+	/* background: rgb(219,228,0); */
+
+	/* background: linear-gradient(0deg, rgba(219,228,0,1) 0%, rgba(199,61,15,1) 59%); */
+
+}
+.nav>li{
+
+	float: left ;
+}
+
+.nav li ul{
+
+	display: none;
+	position:absolute;
+	
+	
+}
+.menu{
+	margin-right: 20px;
+
+}
+
+.menu ul{
+
+	margin-left: -70px;
+}
+
+.nav li:hover>ul{
+	display: block;
+}
+
+
+.btn{
+	color:aliceblue;
+	border-color: white;
+	background-color: black;
+}
+
+.btn-outline-dark{
+	--bs-btn-hover-border-color: rgb(242 242 245);
+	--bs-btn-hover-bg: none;
+}
+
+ul,ol{
+	list-style: none;
 }
