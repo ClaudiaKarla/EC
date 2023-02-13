@@ -21,7 +21,7 @@ require("./config")(app);
 const capitalize = require("./utils/capitalize");
 const projectName = "EC";
 
-app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
+app.locals.appTitle = `${capitalize(projectName)} `;
 
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
@@ -29,6 +29,12 @@ app.use("/", indexRoutes);
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
+
+
+////////////////////////////////////////////
+const adminRoutes = require("./routes/admin.routes");
+app.use("/admin", adminRoutes);
+
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
