@@ -2,10 +2,25 @@
   <h2>Sign Up</h2>
   <form action="/auth/signup" method="POST">
 
-    <label> Username
-      <input type="text" name="username" placeholder="Your username" />
+    <label for="Elije un rol">User or Seller</label>
+  <select name="opciones" id="">
+    <option value="opcion1">user</option>
+    <option value="opcion2">seller</option>
+  </select>
+
+  <label> Name
+      <input type="text" name="Name" placeholder="Your name" />
     </label>
 
+<label> Lastname
+      <input type="text" name="Lastname" placeholder="Your Lastname" />
+    </label>
+
+   <label> Username
+      <input type="text" name="username/company" placeholder="Your username/companyname" />
+    </label>
+
+    
     <label> Email
       <input type="email" name="email" placeholder="Your email" />
     </label>

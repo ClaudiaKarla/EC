@@ -28,12 +28,11 @@ router.post("/signup", isLoggedOut, (req, res) => {
   if (name === "" ||  lastname=== "" ||   username === "" || email === "" || password === "") {
     res.status(400).render("auth/signup", {
       errorMessage:
-        "All fields are mandatory. Please provide your username, email and password.",
+        "All fields are mandatory. Please provide your name, lastname, username/company, email and password.",
     });
 
     return;
   }
-
   if (password.length < 6) {
     res.status(400).render("auth/signup", {
       errorMessage: "Your password needs to be at least 6 characters long.",
@@ -93,7 +92,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   if (name === "" ||  lastname=== "" ||   username === "" || email === "" || password === "") {
     res.status(400).render("auth/login", {
       errorMessage:
-        "All fields are mandatory. Please provide username, email and password.",
+        "All fields are mandatory. Please provide name, lastname, username, email and password.",
     });
 
     return;
@@ -110,15 +109,23 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   // Search the database for a user with the email submitted in the form
   User.findOne({ email })
     .then((user) => {
-      // If the user isn't found, send an error message that user provided wrong credentials
-      if (!user) {
-        res
-          .status(400)
-          .render("auth/login", { errorMessage: "Wrong credentials." });
-        return;
-      }
 
-      // If user is found based on the username, check if the in putted password matches the one saved in the database
+//////////////////////////////////////////////////////////////////////////////
+  
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+if(!user){
+res.status(400)
+.render("auth/login", {
+  errorMessage:
+  "No se encuentra algun otro resultado que es diferente a usuario o vendedor",
+  });
+
+return;
+}    
+
+
+// If user is found based on the username, check if the in putted password matches the one saved in the database
       bcrypt
         .compare(password, user.password)
         .then((isSamePassword) => {
