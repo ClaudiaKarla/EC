@@ -1,30 +1,58 @@
-<div id="form">
+<link rel="stylesheet" href="/stylesheets/signup.css">
+
+<section>
+<div  id="signup-form" class= "imagen">
+
   <h2>Sign Up User</h2>
-  <form action="/auth/signup" method="POST">
+  <form action="/auth/signup" method="POST" class = "boton">
 
-  <label> Name
-      <input type="text" name="Name" placeholder="Your name" />
+<div class="cajitas">
+
+<div>
+<div class="name">
+  <label class="name"> Name
+    </div>
+      <input type="text" name="Name" placeholder="Your name" class="btn btn-light"/>
     </label>
-
-<label> Lastname
-      <input type="text" name="Lastname" placeholder="Your Lastname" />
-    </label>
-
-   <label> Username
-      <input type="text" name="username" placeholder="Your username" />
-    </label>
-
+    </div>
     
-    <label> Email
-      <input type="email" name="email" placeholder="Your email" />
+    <div> 
+<div class="lastname">
+<label class="lastname"> Lastname
+  </div>
+      <input type="text" name="Lastname" placeholder="Your Lastname" class="btn btn-light"/>
     </label>
+    </div>
 
-    <label> Password
-      <input type="password" name="password" placeholder="Your password" />
+<div>  
+  <div class="username">
+   <label class="username"> Username
+    </div>
+      <input type="text" name="username" placeholder="Your username" class="btn btn-light"/>
     </label>
+</div>
+    
+    <div>
+      <div class="email">
+    <label class="email"> Email
+      </div>
+      <input type="email" name="email" placeholder="Your email" class="btn btn-light"/>
+    </label>
+    </div>
 
-    <button type="submit">Sign Up</button>
+  <div>
+    <div class="password">
+    <label class="password">Password
+      </div>
+      <input type="password" name="password" placeholder="Your password" class="btn btn-light"/>
+    </label>
+    </div>
 
+  <div class="b2">
+    <button type="submit" class="btn btn-secondary">Sign Up</button>
+    
+    </div>
+</div>
 
     {{#if errorMessage}}
       <p class="error">{{errorMessage}}</p>
@@ -32,3 +60,4 @@
   </form>
 </div>
 
+</section>
