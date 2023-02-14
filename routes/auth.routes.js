@@ -15,12 +15,12 @@ const User = require("../models/User.model");
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-// GET /auth/signup
+// GET /auth/signup USER
 router.get("/signup", isLoggedOut, (req, res) => {
   res.render("auth/signup");
 });
 
-// POST /auth/signup
+// POST /auth/signup USER
 router.post("/signup", isLoggedOut, (req, res) => {
   const { name, lastname, username, email, password } = req.body;
     console.log(req.body)
@@ -84,7 +84,7 @@ router.get("/login", isLoggedOut, (req, res) => {
   res.render("auth/login");
 });
 
-// POST /auth/login
+// POST /auth/login 
 router.post("/login", isLoggedOut, (req, res, next) => {
   const { name, lastname, username, email, password } = req.body;
 
@@ -148,7 +148,7 @@ return;
     .catch((err) => next(err));
 });
 
-// GET /auth/logout
+// GET /auth/logout USER/SELLER
 router.get("/logout", isLoggedIn, (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -159,5 +159,17 @@ router.get("/logout", isLoggedIn, (req, res) => {
     res.redirect("/");
   });
 });
+
+//MOSTRAR FORMULARIO DE OPCIONES
+router.get("/profiles", (req,res,next)=>{
+  res.render("auth/profiles")
+})
+
+//SELLER
+//MOSTRAR FORMULARIO DE SELLER
+router.get("/seller", isLoggedOut, (req,res, next)=>{
+  res.render("auth/seller")
+});
+
 
 module.exports = router;
