@@ -161,8 +161,8 @@ router.get("/logout", isLoggedIn, (req, res) => {
 });
 
 //MOSTRAR FORMULARIO DE OPCIONES
-router.get("/profiles", (req,res,next)=>{
-  res.render("auth/profiles")
+router.get("/index", (req,res,next)=>{
+  res.render("auth/index")
 })
 
 //SELLER

@@ -25,6 +25,7 @@ border:5px
 	float: right;	
 	display: inline-block;
 	color: white;
+	padding-right:30px;
 }
 .h2, h2 {
 	font-size: 15px;
