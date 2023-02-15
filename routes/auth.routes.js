@@ -153,9 +153,9 @@ router.post('/login', isLoggedOut, (req, res, next) => {
           // Remove the password field
           delete req.session.currentUser.password
           if (user.role === 'seller') {
-            res.redirect('/preview')
-          } else {
-            res.redirect('/')
+            res.redirect('/seller/dashboard');
+          } else if(user.role === 'user'){
+            res.redirect('/products')
           }
         })
         .catch((err) => next(err)) // In this case, we send error handling to the error handling middleware.
