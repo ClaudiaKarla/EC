@@ -1,44 +1,50 @@
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
 // ℹ️ Handles password encryption
-const bcrypt = require("bcrypt");
-const mongoose = require("mongoose");
+const bcrypt = require('bcrypt')
+const mongoose = require('mongoose')
 
 // How many rounds should bcrypt run the salt (default - 10 rounds)
-const saltRounds = 10;
+const saltRounds = 10
 
 // Require the User model in order to interact with the database
-const User = require("../models/User.model");
+const User = require('../models/User.model')
 
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
-const isLoggedOut = require("../middleware/isLoggedOut");
-const isLoggedIn = require("../middleware/isLoggedIn");
+const isLoggedOut = require('../middleware/isLoggedOut')
+const isLoggedIn = require('../middleware/isLoggedIn')
 
 // GET /auth/signup USER
-router.get("/signup", isLoggedOut, (req, res) => {
-  res.render("auth/signup");
-});
+router.get('/signup', isLoggedOut, (req, res) => {
+  res.render('auth/signup')
+})
 
 // POST /auth/signup USER
-router.post("/signup", isLoggedOut, (req, res) => {
-  const { name, lastname, username, email, password } = req.body;
-    console.log(req.body)
+router.post('/signup', isLoggedOut, (req, res) => {
+  const { name, lastname, username, email, password, company } = req.body
+  console.log(req.body)
   // Check that username, email, and password are provided
-  if (name === "" ||  lastname=== "" ||   username === "" || email === "" || password === "") {
-    res.status(400).render("auth/signup", {
+  if (
+    name === '' ||
+    lastname === '' ||
+    username === '' ||
+    email === '' ||
+    password === ''
+  ) {
+    res.status(400).render('auth/signup', {
       errorMessage:
-        "All fields are mandatory. Please provide your name, lastname, username/company, email and password.",
-    });
+        'All fields are mandatory. Please provide your name, lastname, username/company, email and password.'
+    })
 
-    return;
+    return
   }
   if (password.length < 6) {
-    res.status(400).render("auth/signup", {
-      errorMessage: "Your password needs to be at least 6 characters long.",
-    });
+    res.status(400).render('auth/signup', {
+      errorMessage: 'Your password needs to be at least 6 characters long.'
+    })
 
-    return;
+    return
   }
 
   //   ! This regular expression checks password for special characters and minimum length
@@ -60,116 +66,124 @@ router.post("/signup", isLoggedOut, (req, res) => {
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({ name, lastname, username, email, password: hashedPassword });
+      return User.create({
+        name,
+        lastname,
+        username,
+        email,
+        password: hashedPassword,
+        company,
+        role: company ? 'seller' : 'user'
+      })
     })
     .then((user) => {
-      res.redirect("/auth/login");
+      res.redirect('/auth/login')
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
-        res.status(500).render("auth/signup", { errorMessage: error.message });
+        console.log('error :', error.message)
+        res.status(500).render('auth/signup', { errorMessage: error.message })
       } else if (error.code === 11000) {
-        res.status(500).render("auth/signup", {
+        console.log('error :', error.message)
+        res.status(500).render('auth/signup', {
           errorMessage:
-            "Username and email need to be unique. Provide a valid username or email.",
-        });
+            'Username and email need to be unique. Provide a valid username or email.'
+        })
       } else {
-        next(error);
+        next(error)
       }
-    });
-});
+    })
+})
 
 // GET /auth/login
-router.get("/login", isLoggedOut, (req, res) => {
-  res.render("auth/login");
-});
+router.get('/login', isLoggedOut, (req, res) => {
+  res.render('auth/login')
+})
 
-// POST /auth/login 
-router.post("/login", isLoggedOut, (req, res, next) => {
-  const { name, lastname, username, email, password } = req.body;
+// POST /auth/login
+router.post('/login', isLoggedOut, (req, res, next) => {
+  const { email, password } = req.body
 
   // Check that username, email, and password are provided
-  if (name === "" ||  lastname=== "" ||   username === "" || email === "" || password === "") {
-    res.status(400).render("auth/login", {
+  if (email === '' || password === '') {
+    res.status(400).render('auth/login', {
       errorMessage:
-        "All fields are mandatory. Please provide name, lastname, username, email and password.",
-    });
+        'All fields are mandatory. Please provide name, lastname, username, email and password.'
+    })
 
-    return;
+    return
   }
 
   // Here we use the same logic as above
   // - either length based parameters or we check the strength of a password
   if (password.length < 6) {
-    return res.status(400).render("auth/login", {
-      errorMessage: "Your password needs to be at least 6 characters long.",
-    });
+    return res.status(400).render('auth/login', {
+      errorMessage: 'Your password needs to be at least 6 characters long.'
+    })
   }
 
   // Search the database for a user with the email submitted in the form
   User.findOne({ email })
     .then((user) => {
+      //////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////////
-  
+      //////////////////////////////////////////////////////////////////////////////////////////////
+      if (!user) {
+        res.status(400).render('auth/login', {
+          errorMessage:
+            'No se encuentra algun otro resultado que es diferente a usuario o vendedor'
+        })
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-if(!user){
-res.status(400)
-.render("auth/login", {
-  errorMessage:
-  "No se encuentra algun otro resultado que es diferente a usuario o vendedor",
-  });
+        return
+      }
 
-return;
-}    
-
-
-// If user is found based on the username, check if the in putted password matches the one saved in the database
+      // If user is found based on the username, check if the in putted password matches the one saved in the database
       bcrypt
         .compare(password, user.password)
         .then((isSamePassword) => {
           if (!isSamePassword) {
             res
               .status(400)
-              .render("auth/login", { errorMessage: "Wrong credentials." });
-            return;
+              .render('auth/login', { errorMessage: 'Wrong credentials.' })
+            return
           }
 
           // Add the user object to the session object
-          req.session.currentUser = user.toObject();
+          req.session.currentUser = user.toObject()
           // Remove the password field
-          delete req.session.currentUser.password;
-
-          res.redirect("/");
+          delete req.session.currentUser.password
+          if (user.role === 'seller') {
+            res.redirect('/preview')
+          } else {
+            res.redirect('/')
+          }
         })
-        .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
+        .catch((err) => next(err)) // In this case, we send error handling to the error handling middleware.
     })
-    .catch((err) => next(err));
-});
+    .catch((err) => next(err))
+})
 
 // GET /auth/logout USER/SELLER
-router.get("/logout", isLoggedIn, (req, res) => {
+router.get('/logout', isLoggedIn, (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      res.status(500).render("auth/logout", { errorMessage: err.message });
-      return;
+      res.status(500).render('auth/logout', { errorMessage: err.message })
+      return
     }
 
-    res.redirect("/");
-  });
-});
+    res.redirect('/')
+  })
+})
 
 //MOSTRAR FORMULARIO DE OPCIONES
-router.get("/profiles", (req,res,next)=>{
-  res.render("auth/profiles")
+router.get('/index', (req, res, next) => {
+  res.render('auth/index')
 })
 
 //SELLER
 //MOSTRAR FORMULARIO DE SELLER
-router.get("/seller", isLoggedOut, (req,res, next)=>{
-  res.render("auth/seller")
-});
+router.get('/seller', isLoggedOut, (req, res, next) => {
+  res.render('auth/seller')
+})
 
-
-module.exports = router;
+module.exports = router
