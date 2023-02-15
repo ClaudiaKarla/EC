@@ -26,9 +26,11 @@
     <button class="boton" type="submit">Log In</button>
 		</div>
 
-
+<!--muestra un cuadro de error si ya estas registrado y pones mal contraseña -->
     {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
+    <div class="alert alert-danger" role="alert">
+      {{errorMessage}}
+      </div>
     {{/if}}
   </form>
 </div>
