@@ -2,10 +2,18 @@
 <nav>
 	<ul>
 		<div>
+
+			{{user.email}}
 			<div class = "avatar">
-				<a href="/auth/signup"><button>Registrate como Usuario</button></a>
+				{{#if user}}
+				<a href="/auth/logout"><button>Logout</button></a>
+
+				{{else}}
+				<a href="/auth/signup"><button>Registrate como </button>Usuario</a>
 				<a href="/auth/seller"><button>Registrate como Vendedor</button></a>
 				<a href="/auth/login"><button>Inicia Sesion</button></a>
+
+				{{/if}}
 		</div>
 		</div>
 		

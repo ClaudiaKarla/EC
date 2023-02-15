@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose')
 
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const userSchema = new Schema(
@@ -14,34 +14,38 @@ const userSchema = new Schema(
 
     username: {
       type: String,
-      required: true,
       unique: true,
+      trim: true
+    },
+    company: {
+      type: String,
       trim: true,
+      unique: true
     },
     email: {
       type: String,
       required: true,
       unique: true,
       trim: true,
-      lowercase: true,
+      lowercase: true
     },
     password: {
       type: String,
-      required: true,
+      required: true
     },
-    telefono:String,
-   // role:{
-     // type:String,
-     // enum:["user", "seller", "admin"],
-      //default:"user"
-    //}
+    telefono: String,
+    role: {
+      type: String,
+      enum: ['user', 'seller'],
+      default: 'user'
+    }
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
-    timestamps: true,
+    timestamps: true
   }
-);
+)
 
-const User = model("User", userSchema);
+const User = model('User', userSchema)
 
-module.exports = User;
+module.exports = User
