@@ -30,7 +30,7 @@ function deleteProduct(producto){
                     'success'
                 ) 
                 })
-              // location.reload()
+               location.reload()
 
         } else if (
         /* Read more about handling dismissals below */
