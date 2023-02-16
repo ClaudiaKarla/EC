@@ -9,15 +9,4 @@ router.get('/', (req, res, next) => {
   res.render('index');
 })
 
-//router.get('/preview', isLoggedIn, isSeller, previewController)
-
-//profile usuario si es que hay
-//router.get("/profile",(req,res,next)=>{
-//res.render("profile", req.session.currentUser)
-//})
-
-//router.post('/profile/:id',(req,res,next)=>{
-//  const {id}= req.params
-//})
-
 module.exports = router

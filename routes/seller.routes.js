@@ -60,7 +60,7 @@ router.post("/dashboard/products/edit/:id", onlySeller,(req, res,next)=>{
  }).catch(err=>next(err))
 })
 
-router.post("/dashboard/products/delete/:id ", onlySeller,(req,res,next)=>{
+router.post("/dashboard/products/delete/:id", onlySeller,(req,res,next)=>{
     const {id} = req.params
     console.log("Eliminando", id)
 
