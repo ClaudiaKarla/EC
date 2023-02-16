@@ -5,39 +5,39 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     lastname: {
       type: String,
-      required: true
+      required: true,
     },
 
     username: {
       type: String,
       unique: true,
-      trim: true
+      trim: true,
     },
     company: {
       type: String,
       trim: true,
-      unique: true
+      unique: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
       trim: true,
-      lowercase: true
+      lowercase: true,
     },
     password: {
       type: String,
-      required: true
+      required: true,
     },
     telefono: String,
     role: {
       type: String,
       enum: ['user', 'seller'],
-      default: 'user'
+      default: 'user',
     }
   },
   {

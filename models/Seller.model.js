@@ -5,31 +5,31 @@ const sellerSchema = new Schema(
   {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     lastname: {
       type: String,
-      required: true
+      required: true,
     },
 
     company: {
       type: String,
       required: true,
       unique: true,
-      trim: true
+      trim: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
       trim: true,
-      lowercase: true
+      lowercase: true,
     },
     password: {
       type: String,
-      required: true
+      required: true,
     },
-    telefono: String
+    telefono: String,
   },
   {
     // this second object adds extra properties: createdAt and updatedAt
