@@ -60,7 +60,7 @@ nav{
 }
 
 .mb3{
-	font-size: 15px;
+	font-size: 25px;
 }
 
 .nav li ul{
@@ -103,7 +103,7 @@ ul,ol{
 }
 
 .carrusel{
-
+	padding-top: 15%;
 	padding-left: 20%;
 	padding-right: 20%;
 }

@@ -7,7 +7,7 @@ const productoSchema = new Schema(
       type: String,
       required: true,
       enum:["mujer",
-      "hombre",
+      "caballero",
       "niños",
       "joyeria y relojes",
       "belleza", 
