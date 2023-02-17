@@ -2,37 +2,25 @@
   padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-  
 }
-
-/* h3{
-color: rgb(237, 235, 239);
-padding: 40px 40%;
-font-size: 95px;
-border-color: aliceblue;
-border:5px
-
-} */
 
 .h3, h3 {
 	font-size: 100px;
 	color: rgb(237, 235, 239);
 	padding: 40px 40%;
-	
 }
 
 .avatar{
-
 	float: right;	
 	display: inline-block;
 	color: white;
 	padding-right:30px;
 	
 }
+
 .h2, h2 {
 	font-size: 15px;
 }
-
 
 .hero{
 	width: 100vw;
@@ -41,21 +29,16 @@ border:5px
 	background-size: cover;
 	background-repeat: no-repeat;
 	font-size: 35px
-	
 }
+
 nav{
 	display: flex;
 	justify-content:space-around;
-	padding: 30px 15px;
+	padding: 25px 10px;
 	font-size: 45px;
-	
-	/* background: rgb(219,228,0); */
-
-	/* background: linear-gradient(0deg, rgba(219,228,0,1) 0%, rgba(199,61,15,1) 59%); */
-
 }
-.nav>li{
 
+.nav>li{
 	float: left ;
 }
 
@@ -64,32 +47,26 @@ nav{
 }
 
 .nav li ul{
-
 	display: none;
 	position:absolute;
-	
-	
 }
+
 .menu{
 	margin-right: 20px;
-
 }
 
 .menu ul{
-
-	margin-left: -70px;
+	margin-left: -28px;
 }
 
 .nav li:hover>ul{
 	display: block;
 }
 
-
 .btn{
 	color:aliceblue;
 	border-color: white;
 	background-color: black;
-	
 }
 
 .btn-outline-dark{
@@ -103,13 +80,13 @@ ul,ol{
 }
 
 .carrusel{
-	padding-top: 15%;
+	padding-top: 11%;
 	padding-left: 20%;
 	padding-right: 20%;
 }
 .img-carrusel{
 	padding-left: 10%;
 	width: 80%;
-	height: 400px;
+	height: 350px;
 border-radius: 10%;
 }
