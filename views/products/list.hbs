@@ -138,11 +138,12 @@
     {{#each productos}}
         <div class="col">
           <div class="card shadow-sm imagenes" >
-            <img src="{{fotos}}" width="400px" height="400px">
+            <img src="{{fotos}}" width="200px" height="200px">
             <div class="card-body">
-              <p class="card-text">Producto = {{producto}}</p>
-                <p class="card-text">Precio = ${{precio}}.00</p>
-                  <p class="card-text">Existencia = {{existencia}}</p>
+              <p class="card-text">{{producto}}</p>
+                <p class="card-text">${{precio}}.00</p>
+                  <p class="card-text">Disponibles:{{existencia}} pz. ó pzs</p>
+                  <p class="card-text">{{descripcion}}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
 

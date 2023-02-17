@@ -7,17 +7,10 @@
 		<h2>LOGIN</h2>
   <form action="/auth/login" method="POST" class = "formLogin">
 
-{{!-- <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Usuario</label>
-  <input type="text" class="form-control" id="exampleFormControlInput1" name ="username" placeholder="Nombre de usuario" >
-</div> --}}
-
-		{{!-- // --}}
 <div class="mb-3">
   <label for="exampleFormControlInput1" class="form-label">Correo Electronico</label>
   <input type="email" class="form-control" id="exampleFormControlInput2" name ="email" placeholder="Correo Electronico">
 </div>
-
 
 <div class="mb-3">
   <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
@@ -26,7 +19,6 @@
     <button class="boton" type="submit">Log In</button>
 		</div>
 
-<!--muestra un cuadro de error si ya estas registrado y pones mal contraseña -->
     {{#if errorMessage}}
     <div class="alert alert-danger" role="alert">
       {{errorMessage}}

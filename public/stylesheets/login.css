@@ -17,6 +17,7 @@
 	justify-content: center;
 	
 }
+
 .formLogin{
 	
 	box-shadow: 25px 18px 15px -3px rgba(0,0,0,0.1);
@@ -48,4 +49,12 @@ h2{
 	--bs-btn-hover-bg: none;
 	border-radius: 20%;
 
+}
+
+.alert{
+	width: 350px;
+	height: 100px;
+	text-align: center;
+	margin: auto;
+	font-size: 20px;
 }
